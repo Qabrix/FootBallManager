@@ -1,4 +1,4 @@
-package com.hibernate.maven;
+package com.hibernate.maven.DBObjects;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -26,7 +26,7 @@ public class Match {
     private int goalsTeamTwo;
 
     @Column(name = "match_date")
-    private Date createdDate;
+    private Date matchDate;
 
     @Column(name = "id_host")
     private int hostId;
@@ -71,12 +71,12 @@ public class Match {
         this.goalsTeamTwo = goalsTeamTwo;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Date getMatchDate() {
+        return matchDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setMatchDate(Date createdDate) {
+        this.matchDate = createdDate;
     }
 
     public int getHostId() {
