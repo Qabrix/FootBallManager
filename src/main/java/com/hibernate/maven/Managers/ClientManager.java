@@ -1,4 +1,5 @@
 package com.hibernate.maven.Managers;
+import com.hibernate.maven.DBObjects.GeneralTable;
 import com.hibernate.maven.DBObjects.Match;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -15,6 +16,7 @@ public class ClientManager extends HibSessionManager {
         Configuration configObj = new Configuration();
         configObj.configure("hibernate.cfg.xml");
         configObj.addAnnotatedClass(Match.class);
+        configObj.addAnnotatedClass(GeneralTable.class);
         ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
         sessionFactory = configObj.buildSessionFactory(serviceRegistryObj);
         return sessionFactory;

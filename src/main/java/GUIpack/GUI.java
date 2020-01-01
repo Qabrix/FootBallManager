@@ -1,4 +1,5 @@
 package GUIpack;
+import com.hibernate.maven.DBObjects.GeneralTable;
 import com.hibernate.maven.DBObjects.Match;
 import org.hibernate.query.Query;
 import javax.swing.*;
@@ -12,6 +13,7 @@ import static com.hibernate.maven.AppMain.hibSessionManager;
 
 public abstract class GUI extends JFrame {
     protected ArrayList<Match> matchList;
+    protected ArrayList<GeneralTable> generalTableList;
     protected CustomTable generalTable;
     protected CustomTable matchesTable;
     public GUI(){
@@ -20,6 +22,7 @@ public abstract class GUI extends JFrame {
     private void initializeGUI(){
         presetContent();
         showMatches();
+        showGeneralTable();
     }
     private void presetContent(){
         setSize(new Dimension(1000,800));
@@ -58,5 +61,34 @@ public abstract class GUI extends JFrame {
             String host = Integer.toString(curMatch.getHostId());
             matchesTable.getModel().addRow(new String[]{teamOneId, teamTwoId, goalsTeamOne, goalsTeamTwo, date, host});
         }
+        hibSessionManager.getSession().close();
+    }
+    //general
+    private void showGeneralTable(){
+        prepareGeneralTable();
+        getGeneralTable();
+    }
+    private void prepareGeneralTable(){
+        String []header = {"Team", "Points", "Goals for", "Goals against", "Matches played"};
+        String [][]rec = new String[0][0];
+        generalTable = new CustomTable(header, rec);
+    }
+    private void getGeneralTable() {
+        generalTableList = new ArrayList<>();
+        hibSessionManager.openSession();
+        Query query = hibSessionManager.getSession().createQuery("from GeneralTable");
+        Iterator it = query.iterate();
+        while (it.hasNext()) {
+            GeneralTable curGeneralTable = (GeneralTable)it.next();
+            generalTableList.add(curGeneralTable);
+            String teamId = Integer.toString(curGeneralTable.getId());
+            String points = Integer.toString(curGeneralTable.getPoints());
+            String goalsFor = Integer.toString(curGeneralTable.getGoalsFor());
+            String goalsAgainst = Integer.toString(curGeneralTable.getGoalsAgainst());
+            String matchesPlayed = Integer.toString(curGeneralTable.getMatchesPlayed());
+
+            generalTable.getModel().addRow(new String[]{teamId, points, goalsFor, goalsAgainst, matchesPlayed});
+        }
+        hibSessionManager.getSession().close();
     }
 }

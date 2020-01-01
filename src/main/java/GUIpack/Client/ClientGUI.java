@@ -16,6 +16,7 @@ public class ClientGUI extends GUI{
     }
     private void addFields(){
         add(new JScrollPane(matchesTable.getTable()));
+        add(new JScrollPane(generalTable.getTable()));
     }
 
 }

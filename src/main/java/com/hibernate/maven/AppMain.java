@@ -4,7 +4,6 @@ import GUIpack.Admin.AdminGUI;
 import GUIpack.CEO.CEOGUI;
 import GUIpack.Client.ClientGUI;
 import GUIpack.GUI;
-import com.hibernate.maven.DBObjects.Match;
 import com.hibernate.maven.Managers.ClientManager;
 import com.hibernate.maven.Managers.HibSessionManager;
 
@@ -13,14 +12,12 @@ import javax.swing.*;
 public class AppMain {
 
     public static HibSessionManager hibSessionManager;
-    static Match matchObj; //test
     static GUI gui;
     static String chosenUser;
 
     public static void main(String[] args) {
         getUser();
         prepareUser(chosenUser);
-        //((ClientManager)hibSessionManager).testConnection(matchObj);
     }
 
     private static void getUser(){
