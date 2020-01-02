@@ -1,7 +1,7 @@
-package GUIpack.Table.CellRenderers;
+package GUIpack.Tables.CellRenderers;
 
-import GUIpack.Table.RowClasses.MatchRow;
-import GUIpack.Table.Models.MatchTableModel;
+import GUIpack.Tables.RowClasses.MatchRow;
+import GUIpack.Tables.Models.MatchTableModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

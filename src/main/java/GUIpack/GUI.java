@@ -1,9 +1,9 @@
 package GUIpack;
-import GUIpack.Table.RowClasses.GeneralTableRow;
-import GUIpack.Table.CellRenderers.MatchCellRenderer;
-import GUIpack.Table.Models.GeneralTableModel;
-import GUIpack.Table.Models.MatchTableModel;
-import GUIpack.Table.RowClasses.MatchRow;
+import GUIpack.Tables.RowClasses.GeneralTableRow;
+import GUIpack.Tables.CellRenderers.MatchCellRenderer;
+import GUIpack.Tables.Models.GeneralTableModel;
+import GUIpack.Tables.Models.MatchTableModel;
+import GUIpack.Tables.RowClasses.MatchRow;
 import com.hibernate.maven.DBObjects.GeneralTable;
 import com.hibernate.maven.DBObjects.Match;
 import com.hibernate.maven.DBObjects.Team;

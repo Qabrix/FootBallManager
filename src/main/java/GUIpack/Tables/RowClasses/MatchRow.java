@@ -1,4 +1,4 @@
-package GUIpack.Table.RowClasses;
+package GUIpack.Tables.RowClasses;
 
 
 public class MatchRow {

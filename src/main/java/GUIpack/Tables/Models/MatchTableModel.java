@@ -1,6 +1,6 @@
-package GUIpack.Table.Models;
+package GUIpack.Tables.Models;
 
-import GUIpack.Table.RowClasses.MatchRow;
+import GUIpack.Tables.RowClasses.MatchRow;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Vector;

@@ -1,6 +1,6 @@
-package GUIpack.Table.Models;
+package GUIpack.Tables.Models;
 
-import GUIpack.Table.RowClasses.GeneralTableRow;
+import GUIpack.Tables.RowClasses.GeneralTableRow;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Vector;
