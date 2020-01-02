@@ -47,7 +47,7 @@ public abstract class GUI extends JFrame {
     private void getMatches() {
         matchList = new ArrayList<>();
         hibSessionManager.openSession();
-        Query query = hibSessionManager.getSession().createQuery("from Match");
+        Query query = hibSessionManager.getSession().getNamedQuery("get_all_matches");
         Iterator it = query.iterate();
         while (it.hasNext()) {
             Match curMatch = (Match) it.next();
@@ -76,7 +76,7 @@ public abstract class GUI extends JFrame {
     private void getGeneralTable() {
         generalTableList = new ArrayList<>();
         hibSessionManager.openSession();
-        Query query = hibSessionManager.getSession().createQuery("from GeneralTable");
+        Query query = hibSessionManager.getSession().getNamedQuery("get_all_results");
         Iterator it = query.iterate();
         while (it.hasNext()) {
             GeneralTable curGeneralTable = (GeneralTable)it.next();

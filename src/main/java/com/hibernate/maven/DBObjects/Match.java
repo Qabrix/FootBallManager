@@ -1,4 +1,6 @@
 package com.hibernate.maven.DBObjects;
+import org.hibernate.annotations.NamedQuery;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,6 +10,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "matches")
+
+@NamedQuery(name="get_all_matches", query="from Match")
+
 public class Match {
     @Id
     @Column(name = "id_match")

@@ -14,7 +14,7 @@ public class ClientManager extends HibSessionManager {
     @Override
     protected SessionFactory buildSessionFactory(){
         Configuration configObj = new Configuration();
-        configObj.configure("hibernate.cfg.xml");
+        configObj.configure("hibernateClient.cfg.xml");
         configObj.addAnnotatedClass(Match.class);
         configObj.addAnnotatedClass(GeneralTable.class);
         ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();

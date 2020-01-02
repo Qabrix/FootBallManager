@@ -1,5 +1,7 @@
 package com.hibernate.maven.DBObjects;
 
+import org.hibernate.annotations.NamedQuery;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,6 +9,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "general_table")
+
+@NamedQuery(name="get_all_results", query="from GeneralTable")
+
 public class GeneralTable {
     @Id
     @Column(name = "id")

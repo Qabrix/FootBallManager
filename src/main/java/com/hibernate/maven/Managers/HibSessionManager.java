@@ -1,8 +1,6 @@
 package com.hibernate.maven.Managers;
 
-import org.h2.engine.Database;
 import org.hibernate.Session;
-import org.h2.engine.User;
 import org.hibernate.SessionFactory;
 
 
