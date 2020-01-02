@@ -1,6 +1,7 @@
 package com.hibernate.maven.Managers;
 import com.hibernate.maven.DBObjects.GeneralTable;
 import com.hibernate.maven.DBObjects.Match;
+import com.hibernate.maven.DBObjects.Team;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -17,6 +18,7 @@ public class CEOManager extends HibSessionManager {
         configObj.configure("hibernateCEO.cfg.xml");
         configObj.addAnnotatedClass(Match.class);
         configObj.addAnnotatedClass(GeneralTable.class);
+        configObj.addAnnotatedClass(Team.class);
         ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
         sessionFactory = configObj.buildSessionFactory(serviceRegistryObj);
         return sessionFactory;

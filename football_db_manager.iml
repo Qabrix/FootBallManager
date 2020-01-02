@@ -4,6 +4,8 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
+          <unit-entry name="hibernateAdmin.cfg.xml" />
+          <unit-entry name="hibernateCEO.cfg.xml" />
           <unit-entry name="hibernateClient.cfg.xml" />
           <unit-entry name="hibernateLogin.cfg.xml" />
         </datasource-map>

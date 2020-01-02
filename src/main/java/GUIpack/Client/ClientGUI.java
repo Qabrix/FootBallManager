@@ -1,6 +1,6 @@
 package GUIpack.Client;
 import GUIpack.GUI;
-import GUIpack.CustomTable;
+
 import javax.swing.*;
 
 
@@ -15,8 +15,8 @@ public class ClientGUI extends GUI{
 
     }
     private void addFields(){
-        add(new JScrollPane(matchesTable.getTable()));
-        add(new JScrollPane(generalTable.getTable()));
+        add(new JScrollPane(matchTable));
+        add(new JScrollPane(generalTable));
     }
 
 }

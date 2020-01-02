@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "general_table")
 
-@NamedQuery(name="get_all_results", query="from GeneralTable")
+@NamedQuery(name="get_all_general_results", query="from GeneralTable")
 
 public class GeneralTable {
     @Id
@@ -32,19 +32,15 @@ public class GeneralTable {
     public int getId() {
         return id;
     }
-
     public int getPoints() {
         return points;
     }
-
     public int getGoalsFor() {
         return goalsFor;
     }
-
     public int getGoalsAgainst() {
         return goalsAgainst;
     }
-
     public int getMatchesPlayed() {
         return matchesPlayed;
     }

@@ -15,8 +15,8 @@ public class AdminGUI extends GUI{
 
     }
     private void addFields(){
-        add(new JScrollPane(matchesTable.getTable()));
-        add(new JScrollPane(generalTable.getTable()));
+        add(new JScrollPane(matchTable));
+        add(new JScrollPane(generalTable));
     }
 
 }

@@ -39,55 +39,42 @@ public class Match {
     public int getMatchId() {
         return matchId;
     }
-
     public void setMatchId(int matchId) {
         this.matchId = matchId;
     }
-
     public int getTeamOneId() {
         return teamOneId;
     }
-
     public void setTeamOneId(int teamOneId) {
         this.teamOneId = teamOneId;
     }
-
     public int getTeamTwoId() {
         return teamTwoId;
     }
-
     public void setTeamTwoId(int teamTwoId) {
         this.teamTwoId = teamTwoId;
     }
-
     public int getGoalsTeamOne() {
         return goalsTeamOne;
     }
-
     public void setGoalsTeamOne(int goalsTeamOne) {
         this.goalsTeamOne = goalsTeamOne;
     }
-
     public int getGoalsTeamTwo() {
         return goalsTeamTwo;
     }
-
     public void setGoalsTeamTwo(int goalsTeamTwo) {
         this.goalsTeamTwo = goalsTeamTwo;
     }
-
     public Date getMatchDate() {
         return matchDate;
     }
-
     public void setMatchDate(Date createdDate) {
         this.matchDate = createdDate;
     }
-
     public int getHostId() {
         return hostId;
     }
-
     public void setHostId(int hostId) {
         this.hostId = hostId;
     }
