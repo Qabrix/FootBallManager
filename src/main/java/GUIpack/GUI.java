@@ -18,13 +18,14 @@ import java.util.List;
 import static com.hibernate.maven.AppMain.hibSessionManager;
 
 public abstract class GUI extends JFrame {
-    protected ArrayList<Match> matchList;
-    protected ArrayList<GeneralTable> generalTableList;
-    protected Map<Integer,String> teamsNameMap;
+    protected static ArrayList<Match> matchList;
+    protected static ArrayList<GeneralTable> generalTableList;
+    protected static Map<Integer,String> teamsNameMap;
 
-    private GeneralTableModel generalTableModel;
-    private MatchTableModel matchModel;
-    protected JTable matchTable, generalTable;
+    private static GeneralTableModel generalTableModel;
+    private static MatchTableModel matchModel;
+    protected static JTable matchTable, generalTable;
+    public static java.awt.List teamList;
 
     public GUI(){
         initializeGUI();
@@ -45,11 +46,12 @@ public abstract class GUI extends JFrame {
     }
     protected abstract void setFields();
     //matches:
-    private void showMatches(){
+    private static void showMatches(){
         prepareMatchTable();
+        matchList = new ArrayList<>();
         getMatches();
     }
-    private void prepareMatchTable(){
+    private static void prepareMatchTable(){
         matchModel = new MatchTableModel();
         matchTable = new JTable(matchModel);
         matchTable.setDefaultRenderer(String.class, new MatchCellRenderer());
@@ -65,13 +67,19 @@ public abstract class GUI extends JFrame {
 
         hibSessionManager.getSession().close();
     }
-    private void getMatches() {
-        matchList = new ArrayList<>();
+    private static void getMatches() {
         hibSessionManager.openSession();
         List matches = hibSessionManager.getSession().getNamedQuery("get_all_matches").list();
         for(Object match : matches){
             Match curMatch = (Match) match;
             matchList.add(curMatch);
+        }
+        reloadMatches();
+        hibSessionManager.getSession().close();
+    }
+    public static void reloadMatches(){
+        resetMatchesModel();
+        for(Match curMatch : matchList){
             String teamOne = teamsNameMap.get(curMatch.getTeamOneId());
             String teamTwo = teamsNameMap.get(curMatch.getTeamTwoId());
             Integer goalsTeamOne = curMatch.getGoalsTeamOne();
@@ -81,34 +89,74 @@ public abstract class GUI extends JFrame {
             String host =  teamsNameMap.get(curMatch.getHostId());
             matchModel.addMatch(new MatchRow(teamOne, teamTwo, goalsTeamOne, goalsTeamTwo, date, host));
         }
-        hibSessionManager.getSession().close();
     }
     //general
-    private void prepareGeneralTable(){
+    private static void prepareGeneralTable(){
         generalTableModel = new GeneralTableModel();
         generalTable = new JTable(generalTableModel);
     }
 
-    private void showGeneralTable(){
+    private static void showGeneralTable(){
         prepareGeneralTable();
+        generalTableList = new ArrayList<>();
         getGeneralTable();
     }
 
-    private void getGeneralTable() {
-        generalTableList = new ArrayList<>();
+    private static void getGeneralTable() {
         hibSessionManager.openSession();
         List generalTables = hibSessionManager.getSession().getNamedQuery("get_all_general_results").list();
         for(Object gt : generalTables){
             GeneralTable curGeneralTable = (GeneralTable) gt;
             generalTableList.add(curGeneralTable);
-            String team =  teamsNameMap.get(curGeneralTable.getId());
+        }
+        reloadGeneralTable();
+        hibSessionManager.getSession().close();
+    }
+    public static void reloadGeneralTable(){
+        resetGeneralTableModel();
+        for(GeneralTable curGeneralTable : generalTableList) {
+            String team = teamsNameMap.get(curGeneralTable.getId());
             Integer points = curGeneralTable.getPoints();
             Integer goalsFor = curGeneralTable.getGoalsFor();
             Integer goalsAgainst = curGeneralTable.getGoalsAgainst();
             Integer matchesPlayed = curGeneralTable.getMatchesPlayed();
-
             generalTableModel.addGeneralRow(new GeneralTableRow(team, points, goalsFor, goalsAgainst, matchesPlayed));
         }
-        hibSessionManager.getSession().close();
+    }
+    //components
+    protected void addTeamList(){
+        teamList = new java.awt.List();
+        for(Map.Entry<Integer, String> team: teamsNameMap.entrySet()){
+            teamList.add( team.getValue(), team.getKey());
+        }
+        add(teamList);
+    }
+    protected void addShowSquadButton(){
+        add(new ShowSquadButton());
+    }
+    protected void addSortingMatchButton(){
+        add(new SortingMatchButton(matchList));
+    }
+    protected void addSortingPointsButton(){
+        add(new SortingPointsButton(generalTableList));
+    }
+    protected void addRefreshButton(){
+        add(new RefreshButton());
+    }
+    //resets
+    private static void resetGeneralTableModel(){
+        generalTableModel = new GeneralTableModel();
+        generalTable.setModel(generalTableModel);
+    }
+    private static void resetMatchesModel(){
+        matchModel = new MatchTableModel();
+        matchTable.setModel(matchModel);
+    }
+    //refreshing data
+    public static void refreshData(){
+        matchList.clear();
+        generalTableList.clear();
+        getMatches();
+        getGeneralTable();
     }
 }
