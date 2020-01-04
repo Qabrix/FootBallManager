@@ -1,16 +1,18 @@
-package GUIpack.Client;
+package GUIpack.CEO;
+import GUIpack.AddMatchButton;
 import GUIpack.GUI;
 
 import javax.swing.*;
 
+public class CeoGUI extends GUI{
 
-public class ClientGUI extends GUI{
-    public ClientGUI(){
+    public CeoGUI(){
         setFields();
         showGUI();
     }
+
     @Override
-    protected void setFields(){
+    protected void setFields() {
         add(new JScrollPane(matchTable));
         add(new JScrollPane(generalTable));
         addSortingMatchButton();
@@ -18,5 +20,6 @@ public class ClientGUI extends GUI{
         addShowSquadButton();
         addSortingPointsButton();
         addRefreshButton();
+        add(new AddMatchButton());
     }
 }

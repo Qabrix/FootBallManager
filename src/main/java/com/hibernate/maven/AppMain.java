@@ -1,17 +1,12 @@
 package com.hibernate.maven;
 
 import GUIpack.Admin.AdminGUI;
-import GUIpack.CEO.CEOGUI;
+import GUIpack.CEO.CeoGUI;
 import GUIpack.Client.ClientGUI;
 import GUIpack.GUI;
 import com.hibernate.maven.Managers.*;
-import org.hibernate.jdbc.ReturningWork;
 
 import javax.swing.*;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Types;
 
 public class AppMain {
 
@@ -66,7 +61,7 @@ public class AppMain {
                 break;
             case "ceo":
                 hibSessionManager = new CEOManager();
-                gui = new CEOGUI();
+                gui = new CeoGUI();
                 break;
             case "client":
                 hibSessionManager = new ClientManager();
