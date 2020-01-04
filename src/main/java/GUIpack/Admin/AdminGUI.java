@@ -1,22 +1,16 @@
 package GUIpack.Admin;
 
-import GUIpack.GUI;
+import GUIpack.CEO.CeoGUI;
 
 import javax.swing.*;
 
-public class AdminGUI extends GUI{
+public class AdminGUI extends CeoGUI {
     public AdminGUI(){
-        setFields();
+        super();
         addFields();
-        showGUI();
     }
-    @Override
-    protected void setFields(){
 
-    }
     private void addFields(){
-        add(new JScrollPane(matchTable));
-        add(new JScrollPane(generalTable));
-    }
 
+    }
 }

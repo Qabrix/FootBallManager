@@ -1,5 +1,6 @@
 package GUIpack;
 
+import com.hibernate.maven.DBObjects.Player;
 import com.hibernate.maven.DBObjects.Team;
 
 import javax.swing.*;
@@ -24,8 +25,16 @@ public class ShowSquadButton extends JButton implements ActionListener {
             ///sklady w joptionpane
                 List teams = hibSessionManager.getSession().getNamedQuery("get_all_teams").list();
                 Team selectedTeam = (Team)teams.get(selected);
-                JOptionPane.showMessageDialog(getParent(), "Team: " + selectedTeam.getName()
-                + "\nSquad:...");
+                String message = "Team: " + selectedTeam.getName();
+
+            List players = hibSessionManager.getSession().getNamedQuery("get_players").setParameter("selectedTeam",selected+1).list();
+            for(Object player : players){
+                Player p = (Player) player;
+                message += "\n" + p.getName() + " " + p.getSurname();
+            }
+
+
+            JOptionPane.showMessageDialog(getParent(), message);
                 //dopisac zawodnikow
             ///
             hibSessionManager.getSession().close();
