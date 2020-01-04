@@ -15,8 +15,8 @@ public class CeoGUI extends GUI{
     protected void setFields() {
         add(new JScrollPane(matchTable));
         add(new JScrollPane(generalTable));
+        addTeams();
         addSortingMatchButton();
-        addTeamList();
         addShowSquadButton();
         addSortingPointsButton();
         addRefreshButton();

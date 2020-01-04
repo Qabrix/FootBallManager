@@ -17,7 +17,7 @@ public class ShowSquadButton extends JButton implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e){
-        int selected = GUI.teamList.getSelectedIndex();
+        int selected = Integer.parseInt(GUI.teamTable.getValueAt(GUI.teamTable.getSelectedRow(), 0).toString())-1;
         if(selected==-1)
             JOptionPane.showMessageDialog(getParent(),  "You need to choose team first!");
         else{

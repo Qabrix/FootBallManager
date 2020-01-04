@@ -1,9 +1,11 @@
 package GUIpack;
+import GUIpack.Tables.Models.TeamTableModel;
 import GUIpack.Tables.RowClasses.GeneralTableRow;
 import GUIpack.Tables.CellRenderers.MatchCellRenderer;
 import GUIpack.Tables.Models.GeneralTableModel;
 import GUIpack.Tables.Models.MatchTableModel;
 import GUIpack.Tables.RowClasses.MatchRow;
+import GUIpack.Tables.RowClasses.TeamRow;
 import com.hibernate.maven.DBObjects.GeneralTable;
 import com.hibernate.maven.DBObjects.Match;
 import com.hibernate.maven.DBObjects.Team;
@@ -24,8 +26,8 @@ public abstract class GUI extends JFrame {
 
     private static GeneralTableModel generalTableModel;
     private static MatchTableModel matchModel;
-    protected static JTable matchTable, generalTable;
-    public static java.awt.List teamList;
+    private static TeamTableModel teamModel;
+    protected static JTable matchTable, generalTable, teamTable;;
 
     public GUI(){
         initializeGUI();
@@ -34,9 +36,10 @@ public abstract class GUI extends JFrame {
         preSetContent();
         showMatches();
         showGeneralTable();
+        showTeamTable();
     }
     private void preSetContent(){
-        setSize(new Dimension(1000,800));
+        setSize(new Dimension(1000,900));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setResizable(false);
@@ -59,11 +62,7 @@ public abstract class GUI extends JFrame {
         teamsNameMap = new HashMap<>();
 
         hibSessionManager.openSession();
-        List teams = hibSessionManager.getSession().getNamedQuery("get_all_teams").list();
-        for(Object team : teams){
-            Team curTeam = (Team) team;
-            teamsNameMap.put(curTeam.getId(), curTeam.getName());
-        }
+        reloadTeams();
 
         hibSessionManager.getSession().close();
     }
@@ -123,14 +122,24 @@ public abstract class GUI extends JFrame {
             generalTableModel.addGeneralRow(new GeneralTableRow(team, points, goalsFor, goalsAgainst, matchesPlayed));
         }
     }
-    //components
-    protected void addTeamList(){
-        teamList = new java.awt.List();
-        for(Map.Entry<Integer, String> team: teamsNameMap.entrySet()){
-            teamList.add( team.getValue(), team.getKey());
-        }
-        add(teamList);
+    //teams
+    private static void prepareTeamTable(){
+        teamModel = new TeamTableModel();
+        teamTable = new JTable(teamModel);
+        teamTable.setSize(new Dimension(100,100));
     }
+    private static void showTeamTable(){
+        prepareTeamTable();
+        for(Map.Entry<Integer, String> team: teamsNameMap.entrySet()){
+            teamModel.addTeam(new TeamRow(team.getKey(), team.getValue()));
+        }
+    }
+    protected void addTeams(){
+        JScrollPane teamPane = new JScrollPane(teamTable);
+        teamPane.setPreferredSize(new Dimension(300,300));
+        add(teamPane);
+    }
+    //components
     protected void addShowSquadButton(){
         add(new ShowSquadButton());
     }
@@ -152,11 +161,22 @@ public abstract class GUI extends JFrame {
         matchModel = new MatchTableModel();
         matchTable.setModel(matchModel);
     }
+    private static void resetTeamModel(){
+        teamModel = new TeamTableModel();
+        teamTable.setModel(teamModel);
+    }
     //refreshing data
     public static void refreshData(){
         matchList.clear();
         generalTableList.clear();
         getMatches();
         getGeneralTable();
+    }
+    private static void reloadTeams(){
+        List teams = hibSessionManager.getSession().getNamedQuery("get_all_teams").list();
+        for(Object team : teams){
+            Team curTeam = (Team) team;
+            teamsNameMap.put(curTeam.getId(), curTeam.getName());
+        }
     }
 }

@@ -2,6 +2,7 @@ package GUIpack.Client;
 import GUIpack.GUI;
 
 import javax.swing.*;
+import java.awt.*;
 
 
 public class ClientGUI extends GUI{
@@ -13,8 +14,8 @@ public class ClientGUI extends GUI{
     protected void setFields(){
         add(new JScrollPane(matchTable));
         add(new JScrollPane(generalTable));
+        addTeams();
         addSortingMatchButton();
-        addTeamList();
         addShowSquadButton();
         addSortingPointsButton();
         addRefreshButton();
