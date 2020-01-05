@@ -15,12 +15,12 @@ public class MatchCellRenderer extends DefaultTableCellRenderer {
         MatchTableModel model = (MatchTableModel) table.getModel();
         MatchRow match = (MatchRow) model.getValueAtRow(row);
 
-        if(column == 0){
+        if(column == 1){
             if(match.wasDraw())
                 setBackground(Color.yellow);
             else if(match.teamOneHasWon())
                 setBackground(Color.green);
-        }else if(column == 1){
+        }else if(column == 2){
             if(match.teamTwoHasWon())
                 setBackground(Color.green);
             else if(match.wasDraw())

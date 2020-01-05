@@ -79,6 +79,7 @@ public abstract class GUI extends JFrame {
     public static void reloadMatches(){
         resetMatchesModel();
         for(Match curMatch : matchList){
+            Integer id = curMatch.getMatchId();
             String teamOne = teamsNameMap.get(curMatch.getTeamOneId());
             String teamTwo = teamsNameMap.get(curMatch.getTeamTwoId());
             Integer goalsTeamOne = curMatch.getGoalsTeamOne();
@@ -86,7 +87,7 @@ public abstract class GUI extends JFrame {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String date = dateFormat.format(curMatch.getMatchDate());
             String host =  teamsNameMap.get(curMatch.getHostId());
-            matchModel.addMatch(new MatchRow(teamOne, teamTwo, goalsTeamOne, goalsTeamTwo, date, host));
+            matchModel.addMatch(new MatchRow(id, teamOne, teamTwo, goalsTeamOne, goalsTeamTwo, date, host));
         }
     }
     //general

@@ -1,5 +1,6 @@
 package GUIpack.CEO;
 import GUIpack.AddMatchButton;
+import GUIpack.DeleteMatchButton;
 import GUIpack.GUI;
 
 import javax.swing.*;
@@ -21,5 +22,6 @@ public class CeoGUI extends GUI{
         addSortingPointsButton();
         addRefreshButton();
         add(new AddMatchButton());
+        add(new DeleteMatchButton(matchTable));
     }
 }

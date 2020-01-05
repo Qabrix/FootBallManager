@@ -63,7 +63,7 @@ public class AddMatchButton extends JButton implements ActionListener {
         return Integer.parseInt(temp);
     }
     private Date getDate(JTextField tf){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try{
             date = dateFormat.parse(matchDateTF.getText());
@@ -85,8 +85,15 @@ public class AddMatchButton extends JButton implements ActionListener {
     private void addMatchToDB(Match match){
         hibSessionManager.openSession();
         hibSessionManager.getSession().beginTransaction();
-        hibSessionManager.getSession().save(match);
-        hibSessionManager.getSession().getTransaction().commit();
-        hibSessionManager.getSession().close();
+        try {
+            hibSessionManager.getSession().save(match);
+            hibSessionManager.getSession().getTransaction().commit();
+        }
+        catch(Exception ex){
+            hibSessionManager.getSession().getTransaction().rollback();
+        }
+        finally {
+            hibSessionManager.getSession().close();
+        }
     }
 }
