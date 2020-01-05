@@ -83,7 +83,7 @@ public abstract class GUI extends JFrame {
             String teamTwo = teamsNameMap.get(curMatch.getTeamTwoId());
             Integer goalsTeamOne = curMatch.getGoalsTeamOne();
             Integer goalsTeamTwo = curMatch.getGoalsTeamTwo();
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String date = dateFormat.format(curMatch.getMatchDate());
             String host =  teamsNameMap.get(curMatch.getHostId());
             matchModel.addMatch(new MatchRow(teamOne, teamTwo, goalsTeamOne, goalsTeamTwo, date, host));

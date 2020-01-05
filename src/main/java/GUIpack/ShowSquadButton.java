@@ -35,8 +35,6 @@ public class ShowSquadButton extends JButton implements ActionListener {
 
 
             JOptionPane.showMessageDialog(getParent(), message);
-                //dopisac zawodnikow
-            ///
             hibSessionManager.getSession().close();
         }
     }
