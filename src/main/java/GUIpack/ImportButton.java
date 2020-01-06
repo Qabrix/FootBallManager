@@ -1,5 +1,6 @@
 package GUIpack;
 
+import com.hibernate.maven.DBObjects.GeneralTable;
 import com.hibernate.maven.DBObjects.Match;
 
 import javax.swing.*;
@@ -12,6 +13,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static com.hibernate.maven.AppMain.hibSessionManager;
 
 public class ImportButton extends JButton implements ActionListener {
     Boolean finishedImporting;
@@ -26,24 +29,55 @@ public class ImportButton extends JButton implements ActionListener {
         if(finishedImporting)
             readMatches();
     }
-    private synchronized void readMatches(){
+    private void readMatches(){
         finishedImporting = false;
         String csvFile = "db.csv";
         BufferedReader br = null;
         String line = "";
+        ArrayList<String> teamData = new ArrayList<>();
         ArrayList<String> data=new ArrayList<>();
-
         try {
-
             br = new BufferedReader(new FileReader(csvFile));
-
+            //czytanie meczy
             while ((line = br.readLine()) != null) {
                 if(line.equals(""))
                     break;
                 data.add(line);
             }
-
-            int i=0;
+            //czytanie general table
+            while ((line = br.readLine()) != null) {
+                if(line.equals(""))
+                    break;
+                teamData.add(line);
+            }
+            //usuwanie meczy
+            for(int j=GUI.matchList.size()-1; j>=0; j--){
+                DeleteMatchButton.deleteMatch(GUI.matchList.get(j));
+            }
+            //usuwanie general table
+            hibSessionManager.openSession();
+            hibSessionManager.getSession().beginTransaction();
+            for(int k=GUI.generalTableList.size()-1; k>=0; k--){
+                hibSessionManager.getSession().delete(GUI.generalTableList.get(k));
+            }
+            hibSessionManager.getSession().getTransaction().commit();
+            hibSessionManager.getSession().close();
+            //dodawanie general table
+            hibSessionManager.openSession();
+            hibSessionManager.getSession().beginTransaction();
+            for(String dataString : teamData){
+                String[] gtRow = dataString.split(";");
+                GeneralTable gt = new GeneralTable();
+                gt.setId(Integer.parseInt(gtRow[0]));
+                gt.setPoints(Integer.parseInt(gtRow[1]));
+                gt.setGoalsFor(Integer.parseInt(gtRow[2]));
+                gt.setGoalsAgainst(Integer.parseInt(gtRow[3]));
+                gt.setMatchesPlayed(Integer.parseInt(gtRow[4]));
+                hibSessionManager.getSession().save(gt);
+            }
+            hibSessionManager.getSession().getTransaction().commit();
+            hibSessionManager.getSession().close();
+            //dodawanie meczy
             for(String dataString : data){
                 String[] matchRow = splitMatchString(dataString);
                 Match match = new Match();
@@ -61,12 +95,8 @@ public class ImportButton extends JButton implements ActionListener {
                     ex.printStackTrace();
                 }
                 match.setHostId(Integer.parseInt(matchRow[6]));
-                for(int j=GUI.matchList.size()-1; j>=0; j--){
-                    DeleteMatchButton.deleteMatch(GUI.matchList.get(j));
-                }
                 AddMatchButton.addMatchToDB(match);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

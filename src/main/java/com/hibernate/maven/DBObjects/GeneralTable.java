@@ -44,6 +44,26 @@ public class GeneralTable {
     public int getMatchesPlayed() {
         return matchesPlayed;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setGoalsFor(int goalsFor) {
+        this.goalsFor = goalsFor;
+    }
+
+    public void setGoalsAgainst(int goalsAgainst) {
+        this.goalsAgainst = goalsAgainst;
+    }
+
+    public void setMatchesPlayed(int matchesPlayed) {
+        this.matchesPlayed = matchesPlayed;
+    }
 }
 
 

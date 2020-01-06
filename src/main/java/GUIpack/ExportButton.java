@@ -23,8 +23,8 @@ public class ExportButton extends JButton implements ActionListener {
         try {
             exporter = new Exporter();
             writeMatches();
-            writeTeams();
             writeGeneralTable();
+            writeTeams();
             exporter.finish();
         } catch (IOException e) {
             e.printStackTrace();
