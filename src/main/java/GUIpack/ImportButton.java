@@ -14,16 +14,20 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ImportButton extends JButton implements ActionListener {
+    Boolean finishedImporting;
     public ImportButton(){
         setText("Import");
         addActionListener(this);
+        finishedImporting = true;
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        readMatches();
+        if(finishedImporting)
+            readMatches();
     }
-    private void readMatches(){
+    private synchronized void readMatches(){
+        finishedImporting = false;
         String csvFile = "db.csv";
         BufferedReader br = null;
         String line = "";
@@ -73,6 +77,7 @@ public class ImportButton extends JButton implements ActionListener {
                     e.printStackTrace();
                 }
                 GUI.refreshData();
+                finishedImporting = true;
             }
         }
     }

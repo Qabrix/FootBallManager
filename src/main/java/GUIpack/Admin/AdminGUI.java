@@ -1,16 +1,27 @@
 package GUIpack.Admin;
 import GUIpack.CEO.CeoGUI;
-import GUIpack.QueryButton;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AdminGUI extends CeoGUI {
-    public static JTextField queryField;
+    private AdminOptionsFrame adminOptionsFrame;
     public AdminGUI(){
-        queryField = new JTextField();
-        queryField.setPreferredSize(new Dimension(200,30));
-        add(queryField);
-        add(new QueryButton(queryField));
+        addMoreFields();
+        showGUI();
+    }
+
+    private void addMoreFields() {
+        adminOptionsFrame = new AdminOptionsFrame(400,600,"Options");
+
+        JButton adminOptions = new JButton("Open Admin Panel");
+        adminOptions.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e) {
+                adminOptionsFrame.setVisible(true);
+            }
+        });
+        add(adminOptions);
     }
 }

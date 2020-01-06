@@ -10,17 +10,10 @@ public class CeoGUI extends GUI{
     public CeoGUI(){
         setFields();
         showGUI();
+        addFields();
     }
 
-    @Override
-    protected void setFields() {
-        add(new JScrollPane(matchTable));
-        add(new JScrollPane(generalTable));
-        addTeams();
-        addSortingMatchButton();
-        addShowSquadButton();
-        addSortingPointsButton();
-        addRefreshButton();
+    protected void addFields() {
         add(new AddMatchButton());
         add(new DeleteMatchButton(matchTable));
     }

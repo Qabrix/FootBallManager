@@ -10,14 +10,5 @@ public class ClientGUI extends GUI{
         setFields();
         showGUI();
     }
-    @Override
-    protected void setFields(){
-        add(new JScrollPane(matchTable));
-        add(new JScrollPane(generalTable));
-        addTeams();
-        addSortingMatchButton();
-        addShowSquadButton();
-        addSortingPointsButton();
-        addRefreshButton();
-    }
+
 }

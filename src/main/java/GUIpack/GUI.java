@@ -20,6 +20,9 @@ import java.util.List;
 import static com.hibernate.maven.AppMain.hibSessionManager;
 
 public abstract class GUI extends JFrame {
+    private static final int DEFALUT_WIDTH = 1200,
+                DEFALUT_HEIGHT = 900;
+
     protected static ArrayList<Match> matchList;
     protected static ArrayList<GeneralTable> generalTableList;
     protected static Map<Integer,String> teamsNameMap;
@@ -39,7 +42,7 @@ public abstract class GUI extends JFrame {
         showTeamTable();
     }
     private void preSetContent(){
-        setSize(new Dimension(1000,900));
+        setSize(new Dimension(DEFALUT_WIDTH, DEFALUT_HEIGHT));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setResizable(false);
@@ -47,7 +50,15 @@ public abstract class GUI extends JFrame {
     protected void showGUI(){
         setVisible(true);
     }
-    protected abstract void setFields();
+    protected void setFields() {
+        add(new JScrollPane(matchTable));
+        add(new JScrollPane(generalTable));
+        addTeams();
+        addSortingMatchButton();
+        addShowSquadButton();
+        addSortingPointsButton();
+        addRefreshButton();
+    };
     //matches:
     private static void showMatches(){
         prepareMatchTable();

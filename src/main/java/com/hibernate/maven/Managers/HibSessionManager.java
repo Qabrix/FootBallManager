@@ -4,13 +4,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public abstract class HibSessionManager{
-    protected Session session;
+    private Session session;
     protected SessionFactory sessionFactory;
-    public void openSession(){
-        session = buildSessionFactory().openSession();
+
+    HibSessionManager(){
+        sessionFactory = buildSessionFactory();
     }
+
+    public void openSession(){ session = sessionFactory.openSession(); }
     protected abstract SessionFactory buildSessionFactory();
-    public Session getSession(){
-        return session;
-    }
+
+    public Session getSession(){ return session; }
 }
