@@ -72,10 +72,7 @@ public abstract class GUI extends JFrame {
 
         teamsNameMap = new HashMap<>();
 
-        hibSessionManager.openSession();
         reloadTeams();
-
-        hibSessionManager.getSession().close();
     }
     private static void getMatches() {
         hibSessionManager.openSession();
@@ -176,6 +173,9 @@ public abstract class GUI extends JFrame {
     private static void resetTeamModel(){
         teamModel = new TeamTableModel();
         teamTable.setModel(teamModel);
+        for(Map.Entry<Integer, String> team: teamsNameMap.entrySet()){
+            teamModel.addTeam(new TeamRow(team.getKey(), team.getValue()));
+        }
     }
     //refreshing data
     public static void refreshData(){
@@ -183,12 +183,16 @@ public abstract class GUI extends JFrame {
         generalTableList.clear();
         getMatches();
         getGeneralTable();
+        reloadTeams();
+        resetTeamModel();
     }
     private static void reloadTeams(){
+        hibSessionManager.openSession();
         List teams = hibSessionManager.getSession().getNamedQuery("get_all_teams").list();
         for(Object team : teams){
             Team curTeam = (Team) team;
             teamsNameMap.put(curTeam.getId(), curTeam.getName());
         }
+        hibSessionManager.getSession().close();
     }
 }

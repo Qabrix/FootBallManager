@@ -20,30 +20,40 @@ public class QueryButton extends JButton implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
+        String myQuery = queryField.getText();
+        StringBuilder message = new StringBuilder();
         try{
-            String myQuery = queryField.getText();
-            StringBuilder message = new StringBuilder();
             hibSessionManager.openSession();
             hibSessionManager.getSession().beginTransaction();
 
             Query query = hibSessionManager.getSession().createNativeQuery(myQuery);
-            query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
-            try {
-                listResults(query, message);
-            }catch (Exception ignored){
+            listResults(query, message);
 
-            }
             textArea.setText(message.toString());
             hibSessionManager.getSession().getTransaction().commit();
         }catch (Exception ex){
-            ex.printStackTrace();
             hibSessionManager.getSession().getTransaction().rollback();
-        }finally {
             hibSessionManager.getSession().close();
+            try{
+                hibSessionManager.openSession();
+                hibSessionManager.getSession().beginTransaction();
+
+                Query query = hibSessionManager.getSession().createNativeQuery(myQuery);
+                query.executeUpdate();
+
+                hibSessionManager.getSession().getTransaction().commit();
+            }catch (Exception e){
+                ex.printStackTrace();
+                e.printStackTrace();
+                hibSessionManager.getSession().getTransaction().rollback();
+            }finally {
+                hibSessionManager.getSession().close();
+            }
         }
     }
 
     private void listResults(Query query, StringBuilder message) {
+        query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
         List<Map<String,Object>> aliasToValueMapList=query.list();
         for (Map<String, Object> stringObjectMap : aliasToValueMapList) {
             for (Map.Entry<String, Object> entry : stringObjectMap.entrySet()) {
