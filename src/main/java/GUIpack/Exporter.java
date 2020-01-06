@@ -17,7 +17,7 @@ public class Exporter {
         }
 
     }
-    public  FileWriter getWriter(){
+    public  FileWriter getWriter() throws IOException {
         return writer;
     }
     public  void finish() throws IOException {

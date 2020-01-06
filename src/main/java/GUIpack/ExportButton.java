@@ -16,17 +16,16 @@ public class ExportButton extends JButton implements ActionListener {
     public ExportButton(){
         setText("Export");
         addActionListener(this);
-        exporter = new Exporter();
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         try {
+            exporter = new Exporter();
             writeMatches();
             writeTeams();
             writeGeneralTable();
             exporter.finish();
-            this.setEnabled(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
