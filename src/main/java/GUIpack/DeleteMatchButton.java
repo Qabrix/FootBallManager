@@ -20,10 +20,13 @@ public class DeleteMatchButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         int selectedId = Integer.parseInt(matchTable.getValueAt(matchTable.getSelectedRow(), 0).toString());
         Match selectedMatch = null;
-        for(Match match : GUI.matchList){
-            if(match.getMatchId()==selectedId)
-                selectedMatch = match;
+        for(int i=0; i<GUI.matchList.size(); i++){
+            if(GUI.matchList.get(i).getMatchId()==selectedId)
+                selectedMatch = GUI.matchList.get(i);
         }
+        deleteMatch(selectedMatch);
+    }
+    public static void deleteMatch(Match selectedMatch){
         hibSessionManager.openSession();
         hibSessionManager.getSession().beginTransaction();
         try{

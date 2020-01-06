@@ -8,9 +8,8 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.Optional;
+
 
 import static com.hibernate.maven.AppMain.hibSessionManager;
 
@@ -82,7 +81,7 @@ public class AddMatchButton extends JButton implements ActionListener {
         }
         return max+1;
     }
-    private void addMatchToDB(Match match){
+    public static void addMatchToDB(Match match){
         hibSessionManager.openSession();
         hibSessionManager.getSession().beginTransaction();
         try {
