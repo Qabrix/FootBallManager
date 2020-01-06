@@ -1,4 +1,5 @@
 package GUIpack.Admin;
+import GUIpack.GUI;
 import org.hibernate.query.Query;
 import org.hibernate.transform.AliasToEntityMapResultTransformer;
 import javax.swing.*;
@@ -31,6 +32,7 @@ public class QueryButton extends JButton implements ActionListener {
 
             textArea.setText(message.toString());
             hibSessionManager.getSession().getTransaction().commit();
+            hibSessionManager.getSession().close();
         }catch (Exception ex){
             hibSessionManager.getSession().getTransaction().rollback();
             hibSessionManager.getSession().close();
@@ -48,6 +50,7 @@ public class QueryButton extends JButton implements ActionListener {
                 hibSessionManager.getSession().getTransaction().rollback();
             }finally {
                 hibSessionManager.getSession().close();
+                GUI.refreshData();
             }
         }
     }
