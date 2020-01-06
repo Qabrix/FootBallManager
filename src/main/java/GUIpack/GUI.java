@@ -20,17 +20,17 @@ import java.util.List;
 import static com.hibernate.maven.AppMain.hibSessionManager;
 
 public abstract class GUI extends JFrame {
-    private static final int DEFALUT_WIDTH = 1200,
-                DEFALUT_HEIGHT = 900;
+    private static final int DEFALUT_WIDTH = 1300,
+                DEFALUT_HEIGHT = 700;
 
-    protected static ArrayList<Match> matchList;
-    protected static ArrayList<GeneralTable> generalTableList;
-    protected static Map<Integer,String> teamsNameMap;
+    static ArrayList<Match> matchList;
+    static ArrayList<GeneralTable> generalTableList;
+    static Map<Integer,String> teamsNameMap;
 
     private static GeneralTableModel generalTableModel;
     private static MatchTableModel matchModel;
     private static TeamTableModel teamModel;
-    protected static JTable matchTable, generalTable, teamTable;;
+    public static JTable matchTable, generalTable, teamTable;;
 
     public GUI(){
         initializeGUI();
@@ -55,8 +55,8 @@ public abstract class GUI extends JFrame {
         add(new JScrollPane(generalTable));
         addTeams();
         addSortingMatchButton();
-        addShowSquadButton();
         addSortingPointsButton();
+        addShowSquadButton();
         addRefreshButton();
     };
     //matches:
@@ -84,7 +84,7 @@ public abstract class GUI extends JFrame {
         reloadMatches();
         hibSessionManager.getSession().close();
     }
-    public static void reloadMatches(){
+    static void reloadMatches(){
         resetMatchesModel();
         for(Match curMatch : matchList){
             Integer id = curMatch.getMatchId();
@@ -120,7 +120,7 @@ public abstract class GUI extends JFrame {
         reloadGeneralTable();
         hibSessionManager.getSession().close();
     }
-    public static void reloadGeneralTable(){
+    static void reloadGeneralTable(){
         resetGeneralTableModel();
         for(GeneralTable curGeneralTable : generalTableList) {
             String team = teamsNameMap.get(curGeneralTable.getId());
@@ -143,22 +143,22 @@ public abstract class GUI extends JFrame {
             teamModel.addTeam(new TeamRow(team.getKey(), team.getValue()));
         }
     }
-    protected void addTeams(){
+    private void addTeams(){
         JScrollPane teamPane = new JScrollPane(teamTable);
         teamPane.setPreferredSize(new Dimension(300,300));
         add(teamPane);
     }
     //components
-    protected void addShowSquadButton(){
+    private void addShowSquadButton(){
         add(new ShowSquadButton());
     }
-    protected void addSortingMatchButton(){
+    private void addSortingMatchButton(){
         add(new SortingMatchButton(matchList));
     }
-    protected void addSortingPointsButton(){
+    private void addSortingPointsButton(){
         add(new SortingPointsButton(generalTableList));
     }
-    protected void addRefreshButton(){
+    private void addRefreshButton(){
         add(new RefreshButton());
     }
     //resets

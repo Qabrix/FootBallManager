@@ -42,9 +42,8 @@ public class AddMatchButton extends JButton implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         setInputData();
         int option = JOptionPane.showConfirmDialog(getParent(), data, "Add new match", JOptionPane.OK_CANCEL_OPTION);
-        if(option==-JOptionPane.CLOSED_OPTION || option==JOptionPane.CANCEL_OPTION)
-            return;
-        else if(option==JOptionPane.OK_OPTION){
+
+        if(option==JOptionPane.OK_OPTION){
             Match match = new Match();
             match.setMatchId(getMatchId());
             match.setTeamOneId(getInt(idTeam1TF));

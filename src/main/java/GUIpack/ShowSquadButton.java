@@ -25,16 +25,16 @@ public class ShowSquadButton extends JButton implements ActionListener {
             ///sklady w joptionpane
                 List teams = hibSessionManager.getSession().getNamedQuery("get_all_teams").list();
                 Team selectedTeam = (Team)teams.get(selected);
-                String message = "Team: " + selectedTeam.getName();
+                StringBuilder message = new StringBuilder("Team: " + selectedTeam.getName());
 
             List players = hibSessionManager.getSession().getNamedQuery("get_players").setParameter("selectedTeam",selected+1).list();
             for(Object player : players){
                 Player p = (Player) player;
-                message += "\n" + p.getName() + " " + p.getSurname();
+                message.append("\n").append(p.getName()).append(" ").append(p.getSurname());
             }
 
 
-            JOptionPane.showMessageDialog(getParent(), message);
+            JOptionPane.showMessageDialog(getParent(), message.toString());
             hibSessionManager.getSession().close();
         }
     }

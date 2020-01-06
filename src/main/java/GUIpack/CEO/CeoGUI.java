@@ -16,5 +16,7 @@ public class CeoGUI extends GUI{
     protected void addFields() {
         add(new AddMatchButton());
         add(new DeleteMatchButton(matchTable));
+        add(new AddPlayerButton());
+        add(new AddPlayerToSquadButton());
     }
 }

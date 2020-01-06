@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 @NamedNativeQuery(name="get_players", query="Select id, name, surname from players join squads on players.id = squads.player_id Where squads.team_id = :selectedTeam",
         resultClass = Player.class)
+@NamedQuery(name="get_all_players", query="from Player")
 
 public class Player {
     @Id
@@ -28,4 +29,6 @@ public class Player {
     public int getId() { return id; }
     public String getName() { return name; }
     public String getSurname() { return surname; }
+    public void setName(String name) { this.name = name; }
+    public void setSurname(String surname) { this.surname = surname; }
 }

@@ -16,8 +16,7 @@ public class AdminGUI extends CeoGUI {
         adminOptionsFrame = new AdminOptionsFrame(400,600,"Options");
 
         JButton adminOptions = new JButton("Open Admin Panel");
-        adminOptions.addActionListener(new ActionListener()
-        {
+        adminOptions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 adminOptionsFrame.setVisible(true);
             }
